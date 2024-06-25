@@ -3,6 +3,6 @@ import accessRouter from './access'
 
 const router = Router()
 
-router.use('/v1/api', accessRouter)
+router.use('/access', accessRouter)
 
 export default router

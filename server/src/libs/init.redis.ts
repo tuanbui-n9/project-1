@@ -1,11 +1,13 @@
-import * as Redis from 'redis'
+import Redis from 'ioredis'
 import appConfig from '../configs'
 
 interface Client {
-  instanceRedis?: Redis.RedisClientType
+  instanceRedis: Redis
 }
 
-let client: Client = {},
+let client: Client = {
+    instanceRedis: new Redis(appConfig.REDIS_HOST),
+  },
   statusConnectRedis = {
     CONNECT: 'connect',
     END: 'end',
@@ -27,7 +29,7 @@ const handleTimeoutError = () => {
   }, REDIS_CONNECTION_TIMEOUT)
 }
 
-const handleEventConnect = async (connectRedis: Redis.RedisClientType) => {
+const handleEventConnect = async (connectRedis: Redis) => {
   connectRedis.on(statusConnectRedis.CONNECT, () => {
     console.log('::: Redis connected successfully 🚀')
     clearTimeout(connectionTimeout)
@@ -49,15 +51,7 @@ const handleEventConnect = async (connectRedis: Redis.RedisClientType) => {
 }
 
 const initRedis = () => {
-  const instanceRedis = Redis.createClient({
-    url: appConfig.REDIS_HOST,
-  }) as Redis.RedisClientType
-
-  instanceRedis.connect()
-
-  client.instanceRedis = instanceRedis
-
-  handleEventConnect(instanceRedis)
+  handleEventConnect(client.instanceRedis)
 }
 
 const getRedis = () => client

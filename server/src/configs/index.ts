@@ -3,6 +3,7 @@ type EnvironmentConfig = {
   PORT: string
   API_VERSION: string
   REDIS_HOST: string
+  JWT_SECRET: string
 }
 
 class AppConfig {
@@ -15,6 +16,7 @@ class AppConfig {
       PORT: process.env.PORT || '3000',
       API_VERSION: process.env.API_VERSION || 'v1',
       REDIS_HOST: process.env.REDIS_HOST || 'redis://localhost:6379',
+      JWT_SECRET: process.env.JWT_SECRET || 'secret',
     }
 
     this.validateConfig()

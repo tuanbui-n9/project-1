@@ -26,7 +26,7 @@ initRedis()
 import router from './routes'
 import { ErrorResponse } from './utils/error.response'
 
-app.use(router)
+app.use('/v1/api', router)
 
 // Initialize error handling
 app.all('*', (req: Request, res: Response, next: NextFunction) => {

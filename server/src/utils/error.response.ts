@@ -29,4 +29,38 @@ class BadRequestError extends ErrorResponse {
   }
 }
 
-export { ErrorResponse, ConflictError, BadRequestError }
+class InternalError extends ErrorResponse {
+  constructor(
+    message: string = reasonPhrases.INTERNAL_SERVER_ERROR,
+    status: number = httpStatusCode.INTERNAL_SERVER_ERROR
+  ) {
+    super(message, status)
+  }
+}
+
+class UnauthorizedError extends ErrorResponse {
+  constructor(
+    message: string = reasonPhrases.UNAUTHORIZED,
+    status: number = httpStatusCode.UNAUTHORIZED
+  ) {
+    super(message, status)
+  }
+}
+
+class NotFoundError extends ErrorResponse {
+  constructor(
+    message: string = reasonPhrases.NOT_FOUND,
+    status: number = httpStatusCode.NOT_FOUND
+  ) {
+    super(message, status)
+  }
+}
+
+export {
+  ErrorResponse,
+  ConflictError,
+  BadRequestError,
+  InternalError,
+  UnauthorizedError,
+  NotFoundError,
+}
